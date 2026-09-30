@@ -26,7 +26,7 @@ jobs:
         run: |
           import base64, hashlib, json, os, pathlib, re, urllib.request
           from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
-          repository = 'ShadowRosas/PLC-TT-Electronics-Releases'
+          repository = 'iGoAndSuite/PLC-TT-Electronics-Releases'
           if os.environ['GITHUB_REPOSITORY'] != repository:
               raise RuntimeError('Unexpected repository')
           folder = pathlib.Path('incoming')
@@ -34,7 +34,7 @@ jobs:
           signature = (folder / 'manifest.sig').read_bytes()
           if len(raw) > 16384 or len(signature) > 256:
               raise RuntimeError('Oversized manifest')
-          public = bytes.fromhex('66956b9da08bce4874cab53286f57b89f605ffbff22683fc570292ed1b4497fb')
+          public = bytes.fromhex('fce9baa270066eafbfce1ca5136aeacb12786d0190268d618f7d7524de4c9195')
           Ed25519PublicKey.from_public_bytes(public).verify(base64.b64decode(signature, validate=True), raw)
           manifest = json.loads(raw)
           tag = manifest['version']
